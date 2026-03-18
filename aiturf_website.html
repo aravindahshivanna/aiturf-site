@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AITurf — Educate ✦ Elevate</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root {
+  --deep: #0A1628;
+  --navy: #0D3B66;
+  --teal: #14919B;
+  --mint: #45E3C8;
+  --spark: #0AF5B2;
+  --light-blue: #D6EAF8;
+  --ice: #EBF5FB;
+  --white: #F8FBFD;
+  --body: #C8D6E5;
+  --muted: #7F9AB5;
+  --card-bg: rgba(13, 59, 102, 0.25);
+  --card-border: rgba(20, 145, 155, 0.15);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--deep);
+  color: var(--body);
+  overflow-x: hidden;
+}
+
+/* ═══ NEURAL BACKGROUND ═══ */
+.neural-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(20,145,155,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(10,245,178,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(13,59,102,0.3) 0%, transparent 60%);
+}
+
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* ═══ NAV ═══ */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 1.2rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(20px);
+  background: rgba(10, 22, 40, 0.7);
+  border-bottom: 1px solid var(--card-border);
+  transition: all 0.3s;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-decoration: none;
+}
+
+.nav-icon {
+  width: 36px;
+  height: 36px;
+}
+
+.nav-brand {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.nav-brand .ai { color: var(--teal); }
+.nav-brand .turf { color: var(--white); font-weight: 300; }
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover { color: var(--mint); }
+
+.nav-cta {
+  padding: 0.6rem 1.6rem;
+  background: linear-gradient(135deg, var(--teal), var(--mint));
+  color: var(--deep) !important;
+  border-radius: 8px;
+  font-weight: 700 !important;
+  font-size: 0.85rem !important;
+  transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.nav-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 30px rgba(20, 145, 155, 0.3);
+}
+
+/* ═══ HERO ═══ */
+.hero {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 3rem 4rem;
+}
+
+.hero-content {
+  max-width: 900px;
+  text-align: center;
+}
+
+/* Updated logo with tighter spacing */
+.hero-logo-mark {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 0.6rem;
+}
+
+.hero-icon-svg {
+  width: 88px;
+  height: 88px;
+  margin-right: 12px;
+  margin-bottom: 4px;
+}
+
+.hero-wordmark {
+  font-size: 5.5rem;
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.hero-wordmark .ai {
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--teal), var(--mint), var(--spark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-wordmark .turf {
+  font-weight: 300;
+  color: var(--white);
+}
+
+.hero-tagline {
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 8px;
+  color: var(--teal);
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  opacity: 0.9;
+}
+
+.star-sep {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  position: relative;
+}
+
+.star-sep::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--mint);
+  clip-path: polygon(50% 0%, 62% 38%, 100% 50%, 62% 62%, 50% 100%, 38% 62%, 0% 50%, 38% 38%);
+}
+
+.hero-subtitle {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.8rem;
+  line-height: 1.25;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.3s forwards;
+}
+
+.hero-subtitle em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--teal), var(--spark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-desc {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: var(--muted);
+  max-width: 650px;
+  margin: 0 auto 2.5rem;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.5s forwards;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+  opacity: 0;
+  animation: fadeUp 0.8s 0.7s forwards;
+}
+
+.btn-primary {
+  padding: 1rem 2.4rem;
+  background: linear-gradient(135deg, var(--teal), var(--spark));
+  color: var(--deep);
+  border: none;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(20, 145, 155, 0.35);
+}
+
+.btn-secondary {
+  padding: 1rem 2.4rem;
+  background: transparent;
+  color: var(--mint);
+  border: 1.5px solid rgba(69, 227, 200, 0.3);
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  border-color: var(--mint);
+  background: rgba(69, 227, 200, 0.08);
+}
+
+/* ═══ SERVICES ═══ */
+section {
+  position: relative;
+  z-index: 2;
+  padding: 6rem 3rem;
+}
+
+.section-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 5px;
+  color: var(--teal);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.6rem;
+  color: var(--white);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.section-subtitle {
+  font-size: 1.05rem;
+  color: var(--muted);
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 3.5rem;
+  line-height: 1.7;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.8rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.service-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  padding: 2.2rem;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--teal), var(--spark));
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(20, 145, 155, 0.35);
+  box-shadow: 0 20px 60px rgba(10, 22, 40, 0.5);
+}
+
+.service-card:hover::before { opacity: 1; }
+
+.service-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(20, 145, 155, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.4rem;
+  font-size: 1.5rem;
+}
+
+.service-card h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 0.7rem;
+}
+
+.service-card p {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+/* ═══ IMPACT STATS ═══ */
+.stats-section {
+  background: linear-gradient(180deg, transparent, rgba(13, 59, 102, 0.15), transparent);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--mint), var(--spark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 0.5rem;
+  letter-spacing: 1px;
+}
+
+/* ═══ HOW IT WORKS ═══ */
+.steps-container {
+  display: flex;
+  gap: 0;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.steps-container::before {
+  content: '';
+  position: absolute;
+  top: 42px;
+  left: 80px;
+  right: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--teal), var(--mint), var(--spark));
+  opacity: 0.2;
+}
+
+.step {
+  flex: 1;
+  text-align: center;
+  padding: 0 1.5rem;
+}
+
+.step-number {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--navy), var(--teal));
+  border: 2px solid rgba(69, 227, 200, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: var(--spark);
+  font-size: 1.1rem;
+  margin: 0 auto 1.2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.step h4 {
+  font-size: 1.05rem;
+  color: var(--white);
+  margin-bottom: 0.5rem;
+}
+
+.step p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ═══ CTA ═══ */
+.cta-section {
+  text-align: center;
+  padding: 5rem 3rem;
+}
+
+.cta-box {
+  max-width: 700px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, rgba(13,59,102,0.4), rgba(20,145,155,0.12));
+  border: 1px solid rgba(69, 227, 200, 0.15);
+  border-radius: 24px;
+  padding: 3.5rem;
+}
+
+.cta-box h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.2rem;
+  color: var(--white);
+  margin-bottom: 1rem;
+}
+
+.cta-box p {
+  color: var(--muted);
+  margin-bottom: 2rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* ═══ FOOTER ═══ */
+footer {
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid var(--card-border);
+  padding: 3rem;
+  text-align: center;
+}
+
+.footer-brand {
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 0.4rem;
+}
+
+.footer-brand .ai { color: var(--teal); }
+.footer-brand .turf { color: var(--white); font-weight: 300; }
+
+.footer-tagline {
+  font-size: 0.75rem;
+  letter-spacing: 4px;
+  color: var(--teal);
+  opacity: 0.6;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.footer-copy {
+  font-size: 0.8rem;
+  color: var(--muted);
+  opacity: 0.5;
+}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-logo-mark {
+  opacity: 0;
+  animation: fadeUp 0.8s 0.1s forwards;
+}
+
+.hero-tagline {
+  opacity: 0;
+  animation: fadeUp 0.6s 0.2s forwards;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero { padding: 5rem 1.5rem 3rem; }
+  .hero-wordmark { font-size: 3.5rem; }
+  .hero-icon-svg { width: 60px; height: 60px; }
+  .hero-subtitle { font-size: 1.8rem; }
+  .hero-desc { font-size: 1rem; }
+  .hero-actions { flex-direction: column; }
+  .services-grid { grid-template-columns: 1fr; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  .steps-container { flex-direction: column; gap: 2rem; }
+  .steps-container::before { display: none; }
+  .section-title { font-size: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="neural-bg"></div>
+<div class="grain-overlay"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <svg class="nav-icon" viewBox="0 0 110 135" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="ng1" x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#14919B" stop-opacity="0.5"/><stop offset="100%" stop-color="#14919B"/></linearGradient>
+        <linearGradient id="ng2" x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#14919B" stop-opacity="0.6"/><stop offset="100%" stop-color="#45E3C8"/></linearGradient>
+        <linearGradient id="ng3" x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#45E3C8" stop-opacity="0.7"/><stop offset="100%" stop-color="#0AF5B2"/></linearGradient>
+      </defs>
+      <rect x="0" y="80" width="28" height="55" rx="6" fill="url(#ng1)"/>
+      <rect x="40" y="48" width="28" height="87" rx="6" fill="url(#ng2)"/>
+      <rect x="80" y="14" width="28" height="121" rx="6" fill="url(#ng3)"/>
+      <circle cx="14" cy="67" r="6" fill="#14919B"/><circle cx="14" cy="67" r="2.5" fill="#0A1628" opacity="0.5"/>
+      <circle cx="54" cy="35" r="6" fill="#45E3C8"/><circle cx="54" cy="35" r="2.5" fill="#0A1628" opacity="0.5"/>
+      <circle cx="94" cy="2" r="7" fill="#0AF5B2"/><circle cx="94" cy="2" r="3" fill="#0A1628" opacity="0.5"/>
+      <line x1="14" y1="67" x2="54" y2="35" stroke="#45E3C8" stroke-width="2" opacity="0.45"/>
+      <line x1="54" y1="35" x2="94" y2="2" stroke="#0AF5B2" stroke-width="2" opacity="0.45"/>
+      <path d="M94 -6 L94 -20 M88 -13 L94 -20 L100 -13" stroke="#0AF5B2" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    </svg>
+    <span class="nav-brand"><span class="ai">AI</span><span class="turf">Turf</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#impact">Impact</a></li>
+    <li><a href="#cta" class="nav-cta">Get Started</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+
+    <!-- UPDATED LOGO: Icon + AITurf tighter -->
+    <div class="hero-logo-mark">
+      <svg class="hero-icon-svg" viewBox="0 0 110 135" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="hg1" x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#14919B" stop-opacity="0.5"/><stop offset="100%" stop-color="#14919B"/></linearGradient>
+          <linearGradient id="hg2" x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#14919B" stop-opacity="0.6"/><stop offset="100%" stop-color="#45E3C8"/></linearGradient>
+          <linearGradient id="hg3" x1="0%" y1="100%" x2="0%" y2="0%"><stop offset="0%" stop-color="#45E3C8" stop-opacity="0.7"/><stop offset="100%" stop-color="#0AF5B2"/></linearGradient>
+        </defs>
+        <rect x="0" y="80" width="28" height="55" rx="6" fill="url(#hg1)"/>
+        <rect x="40" y="48" width="28" height="87" rx="6" fill="url(#hg2)"/>
+        <rect x="80" y="14" width="28" height="121" rx="6" fill="url(#hg3)"/>
+        <circle cx="14" cy="67" r="7" fill="#14919B"/><circle cx="14" cy="67" r="3" fill="#0A1628" opacity="0.5"/>
+        <circle cx="54" cy="35" r="7" fill="#45E3C8"/><circle cx="54" cy="35" r="3" fill="#0A1628" opacity="0.5"/>
+        <circle cx="94" cy="2" r="8" fill="#0AF5B2"/><circle cx="94" cy="2" r="3.5" fill="#0A1628" opacity="0.5"/>
+        <line x1="14" y1="67" x2="54" y2="35" stroke="#45E3C8" stroke-width="2" opacity="0.45"/>
+        <line x1="54" y1="35" x2="94" y2="2" stroke="#0AF5B2" stroke-width="2" opacity="0.45"/>
+        <path d="M94 -6 L94 -22 M87 -14 L94 -22 L101 -14" stroke="#0AF5B2" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </svg>
+      <span class="hero-wordmark"><span class="ai">AI</span><span class="turf">Turf</span></span>
+    </div>
+
+    <div class="hero-tagline">
+      <span>EDUCATE</span>
+      <span class="star-sep"></span>
+      <span>ELEVATE</span>
+    </div>
+
+    <h1 class="hero-subtitle">AI-powered services that <em>simplify</em> what matters most</h1>
+
+    <p class="hero-desc">From government scheme applications to spoken English coaching and AI literacy training — we use intelligent automation to make education and public services accessible to everyone.</p>
+
+    <div class="hero-actions">
+      <a href="#services" class="btn-primary">Explore Services</a>
+      <a href="#how" class="btn-secondary">How It Works</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-label">WHAT WE DO</div>
+  <h2 class="section-title">Three pillars of impact</h2>
+  <p class="section-subtitle">Every service is designed around one principle: you provide your information once, and our AI handles the complexity.</p>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🎓</div>
+      <h3>AI Literacy Training</h3>
+      <p>Video courses, webinars, and hands-on workshops to upskill individuals and organizations in practical AI — delivered in English, Kannada, and Hindi.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📋</div>
+      <h3>Government Scheme Assistance</h3>
+      <p>Discover schemes you're eligible for, get pre-filled application forms, and navigate Karnataka state and central government benefits — without the confusion.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🗣️</div>
+      <h3>Spoken English Coach</h3>
+      <p>AI-powered pronunciation correction, grammar feedback, fluency tracking, and personalized drills — your 24/7 English speaking partner for IELTS, PTE, and beyond.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">✈️</div>
+      <h3>Study Abroad Services</h3>
+      <p>University application forms, SOP generation, visa form pre-filling, scholarship matching, and interview prep — all from a single student profile.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🎬</div>
+      <h3>Video Content & Dubbing</h3>
+      <p>Professional educational video production, screen-recorded tutorials, and regional language dubbing to reach audiences across India's linguistic diversity.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🤝</div>
+      <h3>Consultancy & Support</h3>
+      <p>One-on-one guidance for form-filling, scheme eligibility, study abroad planning, and AI adoption — human expertise amplified by intelligent tools.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-label">THE PROCESS</div>
+  <h2 class="section-title">Simple by design</h2>
+  <p class="section-subtitle">Whether it's a government scheme or a university application, the flow is the same.</p>
+
+  <div class="steps-container">
+    <div class="step">
+      <div class="step-number">1</div>
+      <h4>Create Your Profile</h4>
+      <p>Enter your details once — personal, educational, financial. This becomes your master profile that powers everything.</p>
+    </div>
+    <div class="step">
+      <div class="step-number">2</div>
+      <h4>Discover What Fits</h4>
+      <p>Our AI scans 2,300+ schemes and programs, matching your profile against eligibility criteria to show exactly what you qualify for.</p>
+    </div>
+    <div class="step">
+      <div class="step-number">3</div>
+      <h4>Apply With Confidence</h4>
+      <p>Pre-filled forms, document checklists, and step-by-step guidance. Review, submit, and track — all from one dashboard.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-section" id="impact">
+  <div class="section-label">THE OPPORTUNITY</div>
+  <h2 class="section-title">The numbers speak</h2>
+  <p class="section-subtitle">India's education and public services landscape is massive — and massively underserved.</p>
+
+  <div class="stats-grid">
+    <div class="stat-item">
+      <div class="stat-number">2,300+</div>
+      <div class="stat-label">Government Schemes</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">880+</div>
+      <div class="stat-label">Karnataka Seva Sindhu Services</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">1.2M+</div>
+      <div class="stat-label">Indian Students Abroad</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">1.5B</div>
+      <div class="stat-label">English Learners Globally</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="cta">
+  <div class="cta-box">
+    <h2>Ready to get started?</h2>
+    <p>Whether you're a student preparing for IELTS, a family applying for government benefits, or someone looking to build AI skills — AITurf is here to help.</p>
+    <a href="#" class="btn-primary">Join the Waitlist</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand"><span class="ai">AI</span><span class="turf">Turf</span></div>
+  <div class="footer-tagline">
+    <span>EDUCATE</span>
+    <span class="star-sep"></span>
+    <span>ELEVATE</span>
+  </div>
+  <div class="footer-copy">© 2026 AITurf. All rights reserved. Built in Bengaluru.</div>
+</footer>
+
+</body>
+</html>
